@@ -1,4 +1,6 @@
+
 def ipValidation(raw_ip_dirty):
+    global clean_ip
 
     # raw_ip_dirty = raw_input("enter ip address: ")
     raw_ip = raw_ip_dirty.lstrip(",<.>/?':;-*/")
@@ -8,7 +10,6 @@ def ipValidation(raw_ip_dirty):
 
     # FUNCTIONS
 
-
     def StringCleaner(clean_ip):
         try:
             for i in range(len(clean_ip)):
@@ -16,7 +17,6 @@ def ipValidation(raw_ip_dirty):
             return 1
         except:
             return 0
-
 
     # FUNCTIONS END
 
@@ -37,7 +37,7 @@ def ipValidation(raw_ip_dirty):
     # IP IS NOW SPLIT INTO 4 OCTETS #
 
     if StringCleaner(clean_ip) != 1:
-        print StringCleaner(clean_ip) #DEBUG
+        # print StringCleaner(clean_ip) #DEBUG
         # print "Invalid IP address Format 1"
         error_code = 1
         return error_code
@@ -67,12 +67,21 @@ def ipValidation(raw_ip_dirty):
 
             if valid_dots and valid_octets == 1:
                 # print ('IP Address is Valid')
-                # print clean_ip #debug
+                print clean_ip #debug
                 error_code = 0
                 return error_code
+
             else:
                 # print ('Invalid IP address Format 3')
                 error_code = 3
                 return error_code
-                # print clean_ip #debug
+                print clean_ip #debug
+
+
+def make_ip():
+    for i in range(len(clean_ip)):
+        clean_ip[i] = str(clean_ip[i])
+    return clean_ip
+
+
 
