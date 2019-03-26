@@ -3,67 +3,68 @@
 
 raw_ip_dirty = raw_input("enter ip address: ")
 raw_ip = raw_ip_dirty.lstrip(",<.>/?':;-*/")
-print "raw IP"
-print raw_ip
+# print "raw IP"
+# print raw_ip #debug
 dots = 0
-meta_chars = [",", "/"]
-
-# def badCheck():
-# BAD CHARACTER CHECK WILL BE DONE HERE BECAUSE THE SEPARATOR COMES NEXT
 
 # FUNCTIONS
 
 
-def checkInt(clean_ip):
+def StringCleaner(clean_ip):
     try:
         for i in range(len(clean_ip)):
             clean_ip[i] = int(clean_ip[i])
-            return 1
+        return 1
     except:
         return 0
 
 # FUNCTIONS END
 
 
-dots = raw_ip.count(".");
+dots = raw_ip.count(".")
     
 if dots != 3:
-    valid_dots = 1
-else:
     valid_dots = 0
+else:
+    valid_dots = 1
+# print valid_dots #DEBUG
 
-# print valid_dots
-
-# WHEN THE SEPARATION AND DOT VALIDATION IS DONE, THE IP WILL BE CLEANED AND BROKEN DOWN TO CHECK FOR INTEGERS ONLY
+# COUNTING OF DOT SEPARATORS IS DONE #
 
 clean_ip = raw_ip.split(".")
-print "just splitted"
-print clean_ip
+# print clean_ip #DEBUG
 
-if checkInt(clean_ip) != 1:
-    intFree == 0
+# IP IS NOW SPLIT INTO 4 OCTETS #
+
+if StringCleaner(clean_ip) != 1:
+    print StringCleaner(clean_ip) #DEBUG
+    print "Invalid IP address Format 1"
+
+# IP ADDRESS CHECKED FOR POSSIBLE STRING POLLUTION AND BRANCHED ACCORDING TO RESULTS #
+
 else:
-    intFree = 1
 
-print "clean IP:"
-print clean_ip
-print intFree
+    if len(clean_ip) != 4:
+        print "Invalid IP address Format 2"
 
-if len(clean_ip) != 4:
+# CHECKED IF THE NUMBER OF OCTETS ARE 4 AND BRANCHED ACCORDINGLY #
 
-    print clean_ip
-    print "Invalid IP address Format"
-else:
-    for i in range(len(clean_ip)):
-        if clean_ip[i] <= 255 and len(clean_ip[i]) >= 1:
-            valid_octets = 1
-        else:
-            valid_octets = 0
-
-    # print valid_octets
-
-    if valid_dots and valid_octets == 1:
-        print ('IP Address is Valid')
     else:
-        print ('Invalid IP address Format')
+
+        for i in range(len(clean_ip)):
+            if clean_ip[i] <= 255:
+                valid_octets = 1
+            else:
+                valid_octets = 0
+
+# CHECKED IF EACH OCTET IS LESSER THAN OR EQUAL TO 255 #
+
+        # print valid_octets #DEBUG
+
+        if valid_dots and valid_octets == 1:
+            print ('IP Address is Valid')
+            print clean_ip #debug
+        else:
+            print ('Invalid IP address Format 3')
+            print clean_ip #debug
 
