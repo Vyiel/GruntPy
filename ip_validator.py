@@ -56,12 +56,12 @@ def ipValidation(raw_ip_dirty):
         else:
 
             for i in range(len(clean_ip)):
-                if clean_ip[i] <= 255:
+                if clean_ip[i] <= 255 and clean_ip[i] >= 0:
                     valid_octets = 1
                 else:
                     valid_octets = 0
 
-    # CHECKED IF EACH OCTET IS LESSER THAN OR EQUAL TO 255 #
+    # CHECKED IF EACH OCTET IS LESSER THAN OR EQUAL TO 255 and more than 0 #
 
             # print valid_octets #DEBUG
 
