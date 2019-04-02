@@ -32,7 +32,7 @@ else:
 
 cidr = input("Enter CIDR Value '0 for single ip' : ")
 # Df_ports = raw_input("Default '21, 22, 23, 80, 137, 139, 445, 3306, 8080'? y/n: ")
-
+#
 # if Df_ports == 'y':
 #     portRange = [21, 22, 23, 80, 137, 139, 445, 3306, 8080]
 
@@ -72,47 +72,53 @@ elif cidr >= 24:
         else:
             sub_calc_error = 1
 
-    for k in range(start_host, end_host):
+    for k in range(start_host, end_host+1):
+        (host_range.append(k))
+
+
+    for l in host_range:
+        ipRange.append(ipMod[0] + "." + ipMod[1] + "." + ipMod[2] + "." + str(l))
+
+    for ips in ipRange:
+        # scan(ips)
+        print ips
+
+
+elif cidr >= 16:
+    ipMod = ip[0:2]
+    given_host = int(ip[2])
+
+    hostBits = 24 - cidr
+    availHosts = (2 ** hostBits)
+    net_bits = cidr - 16
+    subnets = 2 ** net_bits
+    s_range = 256 / subnets
+
+    for i in range(subnets):
+        start_cap.append(init)
+        init = init + s_range
+        end_cap.append(init - 1)
+
+    for j in range(subnets):
+        if given_host >= start_cap[j] and given_host <= end_cap[j]:
+            start_host = int(start_cap[j])
+            end_host = int(end_cap[j])
+            break
+        else:
+            sub_calc_error = 1
+
+    for k in range(start_host, end_host+1):
         (host_range.append(k))
 
     for l in host_range:
-        print ipMod[0] + "." + ipMod[1] + "." + ipMod[2] + "." + str(l)
+        for m in range(256):
+            ipRange.append(ipMod[0] + "." + ipMod[1] + "." + str(l) + "." + str(m))
+
+    for ips in ipRange:
+        # scan(ips)
+        print ips
+
+else:
+    print ("Program is prototype. Classes A and B hasn't been developed yet")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#     for i in range(availHosts):
-#         ipRange.append(ipMod[0]+"."+ipMod[1]+"."+ipMod[2]+"."+str(i))
-#     # for ips in ipRange:
-#     #     # scan(ips)
-#     #     print
-#
-# elif cidr >= 16:
-#     ipMod = ip[0:2]
-#     # print ipMod
-#     hostBits = 24 - cidr
-#     availHosts = (2 ** hostBits)
-#
-#     for i in range(availHosts):
-#         for j in range(256):
-#             ipRange.append(ipMod[0]+"."+ipMod[1]+"."+str(i)+"."+str(j))
-#     for ips in ipRange:
-#         # scan(ips)
-#         print ips
-# else:
-#     print ("Program is prototype. Classes A and B hasn't been developed yet")
-#
-#
