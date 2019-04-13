@@ -1,5 +1,6 @@
 import socket
 import ip_validator as check_ip
+import scanners as sc
 
 
 
@@ -19,6 +20,7 @@ def scan(ipAdd):
 
 # openPorts = []
 # closedPorts = []
+portRange = []
 
 
 raw_ip = raw_input("Enter valid IP Address: ")
@@ -31,12 +33,12 @@ else:
 
 
 cidr = input("Enter CIDR Value '0 for single ip' : ")
-# Df_ports = raw_input("Default '21, 22, 23, 80, 137, 139, 445, 3306, 8080'? y/n: ")
-#
-# if Df_ports == 'y':
-#     portRange = [21, 22, 23, 80, 137, 139, 445, 3306, 8080]
 
-# print ip
+option = raw_input("Host Discovery or Port scan? Reply with 'pn' or 'sc'. ")
+if option == "pn":
+    choice = 1
+elif option == "sc":
+    choice = 2
 
 ipRange = []
 init = 0
@@ -45,9 +47,7 @@ end_cap = []
 host_range = []
 
 if cidr == 0:
-    ip = raw_ip
-    # scan(ip)
-    print ips
+    ipRange.append(ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3])
 
 elif cidr >= 24:
     ipMod = ip[0:3]
@@ -79,12 +79,11 @@ elif cidr >= 24:
     for l in host_range:
         ipRange.append(ipMod[0] + "." + ipMod[1] + "." + ipMod[2] + "." + str(l))
 
-    for ips in ipRange:
-        # scan(ips)
-        print ips
+    # for ips in ipRange:
+    #     print ips
+    #DEBUG#
 
-
-elif cidr >= 16:
+elif cidr >= 16 and cidr < 24:
     ipMod = ip[0:2]
     given_host = int(ip[2])
 
@@ -114,11 +113,42 @@ elif cidr >= 16:
         for m in range(256):
             ipRange.append(ipMod[0] + "." + ipMod[1] + "." + str(l) + "." + str(m))
 
-    for ips in ipRange:
-        # scan(ips)
-        print ips
+    # for ips in ipRange:
+    #     print ips
+    # DEBUG#
 
 else:
     print ("Program is prototype. Classes A and B hasn't been developed yet")
+
+if choice == 2:
+    Df_ports = raw_input("Default '21, 22, 23, 80, 137, 139, 445, 3306, 8080'? y/n: ")
+
+    if Df_ports == 'y':
+        portRange = [21, 22, 23, 53, 80, 137, 139, 445, 3306, 5000, 8080]
+    elif Df_ports == 'n':
+        start_port = raw_input("enter start port: ")
+        end_port = raw_input("enter end port: ")
+
+        for ports in range(int(start_port), int(end_port + 1)):
+            portRange.append(str(ports))
+
+    else:
+        print "Invalid Choice"
+
+    for ips in ipRange:
+        scan = sc.synScan(ips, portRange)
+        print scan[0]
+        print scan[1]
+
+elif choice == 1:
+    for ips in ipRange:
+        ping = sc.pingScan(ips)
+        if ping == 1:
+            print "Host is up"
+        else:
+            print "Host is down"
+
+
+
 
 
