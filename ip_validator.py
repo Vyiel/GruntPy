@@ -67,7 +67,7 @@ def ipValidation(raw_ip_dirty):
 
             if valid_dots and valid_octets == 1:
                 # print ('IP Address is Valid')
-                print clean_ip #debug
+                # print clean_ip #debug
                 error_code = 0
                 return error_code
 

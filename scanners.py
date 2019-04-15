@@ -1,11 +1,13 @@
 from scapy.all import *
+from termcolor import colored
+
 
 popen = []
 pclosed = []
+result = []
 def synScan(ip, ports):
-    print ports
     for port in ports:
-        print ("Scanning IP: "+ str(ip) + " for port: " + str(port))
+        print colored("Scanning IP: "+ str(ip) + " for port: " + str(port), "blue")
         target = IP(dst=ip)/TCP(dport=port,flags="S")
         reset_target = IP(dst=ip)/TCP(dport=port,flags="R")
 
@@ -18,7 +20,6 @@ def synScan(ip, ports):
             else:
                 pclosed.append(str(port))
         sr(reset_target,timeout=0.5,verbose=0)
-
     return popen, pclosed
 
 def pingScan(ip):
