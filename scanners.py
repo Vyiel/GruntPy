@@ -6,6 +6,8 @@ popen = []
 pclosed = []
 result = []
 def synScan(ip, ports):
+    popen[:] = []
+    pclosed[:] = []
     for port in ports:
         print colored("Scanning IP: "+ str(ip) + " for port: " + str(port), "blue")
         target = IP(dst=ip)/TCP(dport=port,flags="S")
@@ -20,7 +22,7 @@ def synScan(ip, ports):
             else:
                 pclosed.append(str(port))
         sr(reset_target,timeout=0.5,verbose=0)
-    return popen, pclosed
+    return [popen, pclosed]
 
 def pingScan(ip):
     target = IP(dst=ip)/ICMP()
@@ -29,6 +31,16 @@ def pingScan(ip):
         return 0
     else:
         return 1
+
+
+# #TESTING FUNCTION
+# iprange = ['192.168.1.0', '192.168.1.1', '192.168.1.2', '192.168.1.3']
+# portrange = [21, 80, 8080, 82, 5000]
+#
+# for ips in iprange:
+#     a = synScan(ips, portrange)
+#     print a
+# #TESTING FUNCTION
 
 
 

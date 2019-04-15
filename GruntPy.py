@@ -8,6 +8,12 @@ def main():
 
     portRange = []
     cidr = int()
+    ipRange = []
+    init = 0
+    start_cap = []
+    end_cap = []
+    host_range = []
+
 
     raw_ip = raw_input("Enter valid IP Address: ")
     ip_ok = check_ip.ipValidation(raw_ip)
@@ -23,11 +29,6 @@ def main():
         print colored("Invalid CIDR Value. Restarting!!! ", 'red')
         main()
 
-    ipRange = []
-    init = 0
-    start_cap = []
-    end_cap = []
-    host_range = []
 
     if cidr == 0:
         ipRange.append(ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3])
