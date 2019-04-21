@@ -4,7 +4,8 @@ import ip_validator as check_ip
 import scanners as sc
 import sys
 from termcolor import colored
-from collections import OrderedDict
+import webbrowser
+
 
 
 def main():
@@ -168,7 +169,6 @@ def main():
 
         print colored("Only displaying open ports! ", "yellow")
 
-
         for ips in ipRange:
             scan = sc.synScan(ips, portRange)
             if len(scan[0]) == 0:
@@ -182,7 +182,6 @@ def main():
                     text_out_ports.append(open_port)
                 results[text_out_ip] = text_out_ports
 
-
     elif choice == 1:
         for ips in ipRange:
             text_out_ip.append(ips)
@@ -190,7 +189,6 @@ def main():
             if ping == 1:
                 print colored(ips+" is up!", "green")
                 text_out_ping.append(ping)
-
             else:
                 print colored(ips+" is down!", "red")
 
@@ -199,17 +197,14 @@ def main():
         for keys in results.keys():
             print ""
             print "Open ports on IP "+str(keys)+": "
-            print results[keys]
-
-        print "______________________ end of segment ______________________ "
+            for values in results[keys]:
+                print values
+        print "______________________ End of Scan Results ______________________ "
         print ""
-        sys.stdout.flush()
-
         sys.stdout.close()
+        webbrowser.open(str(scan_id)+".txt")
 
 
-
-#
 if __name__ == '__main__':
     try:
         main()
