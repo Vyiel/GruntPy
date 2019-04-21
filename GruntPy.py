@@ -1,8 +1,11 @@
+from random import randint
 
 import ip_validator as check_ip
 import scanners as sc
 import sys
 from termcolor import colored
+from collections import OrderedDict
+
 
 def main():
 
@@ -13,7 +16,14 @@ def main():
     start_cap = []
     end_cap = []
     host_range = []
+    scan_id = (randint(1, 1000))
+    text_out_ip = []
+    text_out_ports = []
+    text_out_ping = []
+    results = {}
 
+
+    print colored("Your Scan ID for text output file is: "+str(scan_id), "red")
 
     raw_ip = raw_input("Enter valid IP Address: ")
     ip_ok = check_ip.ipValidation(raw_ip)
@@ -142,8 +152,13 @@ def main():
             elif rchoice == "df":
                 user_ports = raw_input("Enter ports separated with comma ',': ")
                 def_ports = user_ports.split(",")
-                for ports in def_ports:
-                    portRange.append(int(ports))
+
+                try:
+                    for p in def_ports:
+                        portRange.append(int(p))
+                except:
+                    print colored("Invalid Port exception caught!!! Restarting", "red")
+
             else:
                 print colored("Invalid Choice. Restarting!!! ", 'red')
                 main()
@@ -152,28 +167,55 @@ def main():
             main()
 
         print colored("Only displaying open ports! ", "yellow")
+
+
         for ips in ipRange:
             scan = sc.synScan(ips, portRange)
-            if not scan[0]:
+            if len(scan[0]) == 0:
                 print colored("No open ports found on: "+ips, "red")
             else:
                 print "On IP: "+ips
+                text_out_ip = ips
+                text_out_ports = []
                 for open_port in scan[0]:
                     print colored("Port: "+open_port+" is open ", "green")
+                    text_out_ports.append(open_port)
+                results[text_out_ip] = text_out_ports
+
 
     elif choice == 1:
         for ips in ipRange:
+            text_out_ip.append(ips)
             ping = sc.pingScan(ips)
             if ping == 1:
                 print colored(ips+" is up!", "green")
+                text_out_ping.append(ping)
+
             else:
                 print colored(ips+" is down!", "red")
 
+    if len(results) != 0:
+        sys.stdout = open(str(scan_id)+".txt", "w")
+        for keys in results.keys():
+            print ""
+            print "Open ports on IP "+str(keys)+": "
+            print results[keys]
+
+        print "______________________ end of segment ______________________ "
+        print ""
+        sys.stdout.flush()
+
+        sys.stdout.close()
+
+
+
+#
 if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
         print colored("You have pressed an escape sequence. Quitting!!! ", "red")
         sys.exit(0)
+
 
 
