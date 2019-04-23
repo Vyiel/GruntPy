@@ -1,5 +1,7 @@
 from scapy.all import *
-from termcolor import colored
+import colorama
+from termcolor import *
+colorama.init()
 
 
 popen = []
@@ -8,8 +10,11 @@ result = []
 def synScan(ip, ports):
     popen[:] = []
     pclosed[:] = []
+    cprint("Scanning IP: " + str(ip) + " for open ports: ", "blue")
+
     for port in ports:
-        print colored("Scanning IP: "+ str(ip) + " for port: " + str(port), "blue")
+        # cprint("Scanning IP: " + str(ip) + " for port: " + str(port), "blue")
+
         target = IP(dst=ip)/TCP(dport=port,flags="S")
         reset_target = IP(dst=ip)/TCP(dport=port,flags="R")
 
