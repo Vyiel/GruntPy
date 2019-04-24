@@ -1,8 +1,10 @@
+from memory_profiler import profile
 from termcolor import *
 import colorama
 colorama.init()
 import sys
 
+@profile()
 def calculate_subnet(ip, cidr):
     init = 0
     start_cap = []
@@ -55,13 +57,13 @@ def calculate_subnet(ip, cidr):
     if seg == 24:
         for l in host_range:
             ipRange.append(ip[0] + "." + ip[1] + "." + ip[2] + "." + str(l))
-            yield ipRange
+        return ipRange
 
     elif seg == 16:
         for l in host_range:
             for m in range(256):
                 ipRange.append(ip[0] + "." + ip[1] + "." + str(l) + "." + str(m))
-                yield ipRange
+        return ipRange
 
     else:
         cprint(
@@ -81,3 +83,6 @@ raw_ip = '147.211.117.114'
 ip = raw_ip.split('.')
 cidr = input("Enter CIDR: ")
 result = calculate_subnet(ip, cidr)
+
+for values in result:
+    print values
