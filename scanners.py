@@ -9,7 +9,7 @@ colorama.init()
 popen = []
 pclosed = []
 result = []
-@profile()
+
 def synScan(ip, ports):
     popen[:] = []
     pclosed[:] = []
@@ -41,14 +41,14 @@ def pingScan(ip):
         return 1
 
 
-#TESTING FUNCTION
-iprange = ['192.168.1.0', '192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.4', '192.168.1.5', '192.168.1.6', '192.168.1.7']
-portrange = [21, 80, 8080, 82, 5000, 22, 23, 25, 533, 544, 8090, 6070]
-
-for ips in iprange:
-    a = synScan(ips, portrange)
-    print a
-#TESTING FUNCTION
+# #TESTING FUNCTION
+# iprange = ['192.168.1.0', '192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.4', '192.168.1.5', '192.168.1.6', '192.168.1.7']
+# portrange = [21, 80, 8080, 82, 5000, 22, 23, 25, 533, 544, 8090, 6070]
+#
+# for ips in iprange:
+#     a = synScan(ips, portrange)
+#     print a
+# #TESTING FUNCTION
 
 
 
