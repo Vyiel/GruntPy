@@ -17,7 +17,7 @@ def manualPorts():
                 portRange.append(int(p))
             return portRange
         except:
-            cprint("Invalid Ports detected!!! Re-Do", "red")
+            cprint("Invalid Ports detected!!!", "red")
             portRange[:] = []
             continue
 
@@ -41,19 +41,19 @@ def manualRange():
                         portRange.append(int(j))
                     return portRange
                 except:
-                    cprint("Invalid Port range detected!!! Re-Do", "red")
+                    cprint("Invalid Port range detected!!! ", "red")
                     clean_range[:] = []
                     portRange[:] = []
                     continue
 
             else:
-                cprint("Invalid Port range detected!!! Re-Do", "red")
+                cprint("Invalid Port range detected!!!", "red")
         else:
-            cprint("Invalid Port range detected!!! Re-Do", "red")
+            cprint("Invalid Port range detected!!!", "red")
 
 
 def unknownAction():
-    cprint ("Unknown selection!!! ", "red")
+    return False
 
 
 

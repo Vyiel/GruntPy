@@ -4,24 +4,34 @@ from scapy.all import *
 import colorama
 from termcolor import *
 colorama.init()
+from memory_profiler import profile
 
 
 popen = []
 pclosed = []
 result = []
 
+
+@profile()
 def synScan(ip, ports):
     popen[:] = []
     pclosed[:] = []
+    times = int(0)
     # cprint("Scanning IP: " + str(ip) + " for open ports: ", "blue")
 
     for port in ports:
+        times = times + 1
+        if times == 100:
+            cprint("resting for 5 seconds!!! ", "green")
+            time.sleep(5)
+            times = 0
+
         cprint("Scanning IP: " + str(ip) + " for port: " + str(port), "blue")
 
         target = IP(dst=ip)/TCP(dport=port,flags="S")
         reset_target = IP(dst=ip)/TCP(dport=port,flags="R")
 
-        response = sr1(target,timeout=1,inter=0.5,verbose=0)
+        response = sr1(target,timeout=1,verbose=0)
         if response == None:
             pclosed.append(str(port))
         else:
@@ -29,7 +39,7 @@ def synScan(ip, ports):
                 popen.append(str(port))
             else:
                 pclosed.append(str(port))
-        sr(reset_target,timeout=0.5,verbose=0)
+        send(reset_target,timeout=0.2,verbose=0)
     return [popen, pclosed]
 
 def pingScan(ip):

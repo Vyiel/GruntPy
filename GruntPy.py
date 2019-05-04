@@ -4,13 +4,14 @@ import ip_validator as check_ip
 import scanners as sc
 import basicFunctions as bf
 import sys
+import time
 from termcolor import *
 import webbrowser
 import colorama
 colorama.init()
+from memory_profiler import profile
 
-
-
+@profile()
 def main():
 
     portRange = []
@@ -18,10 +19,12 @@ def main():
     ipRange = []
     scan_id = (randint(1, 1000))
     text_out_ip = []
+    text_out_ports = []
     text_out_ping = []
     results = {}
     ip = []
     bfdict = {}
+    times = int(0)
 
 
     cprint("Your Scan ID for text output file is: "+str(scan_id), "red")
@@ -64,22 +67,46 @@ def main():
     3) For scanning with port range entered!
     """,
            "blue")
-    def inputAction1():
-        while True:
-            try:
-                action1 = raw_input("Enter selection ")
-                action1 = int(action1)
 
-                return action1
-            except:
-                cprint("Selection not integer!!! ", "red")
-                continue
+    while True:
 
-    ia1 = inputAction1()
+        action1 = raw_input("Enter selection: ")
+        try:
+            action1 = int(action1)
+        except:
+            cprint("Unavilable selection detected!!! ", "red")
+            continue
+        if action1 > 3 or action1 < 1:
+            cprint("Unavilable selection detected!!! ", "red")
+            continue
+        else:
+            break
+
+    portRange = bfdict.get(action1, bf.unknownAction)()
+
+    for ips in ipRange:
+        # times = times + 1
+        # if times == 5:
+        #     cprint("resting for 15 seconds!!! ", "green")
+        #     time.sleep(5)
+        #     times = 0
 
 
-    got = bfdict.get(ia1, False)()
-    print got
+        scan = sc.synScan(ips, portRange)
+        if len(scan[0]) == 0:
+            cprint("No open ports found on: " + ips, "red")
+        else:
+            cprint("On IP: " + ips, "cyan")
+            text_out_ip = ips
+            text_out_ports = []
+            for open_port in scan[0]:
+                cprint("Port: " + open_port + " is open ", "green")
+                text_out_ports.append(open_port)
+            results[text_out_ip] = text_out_ports
+
+
+
+
 
 
 
