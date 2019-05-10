@@ -1,8 +1,6 @@
-from memory_profiler import profile
 from termcolor import *
 import colorama
 colorama.init()
-import sys
 
 def calculate_subnet(ip, cidr):
     init = 0
@@ -17,8 +15,6 @@ def calculate_subnet(ip, cidr):
     subnetting_error = 0
     classes = [0, 8, 16, 24, 32]
     subnetting_error = int(0)
-
-    # print cidr
 
     try:
         cidr = int(cidr)
