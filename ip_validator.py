@@ -7,8 +7,6 @@ def ipValidation(raw_ip_dirty):
 
     dots = 0
 
-    # FUNCTIONS
-
     def StringCleaner(clean_ip):
         try:
             for i in range(len(clean_ip)):
@@ -17,7 +15,6 @@ def ipValidation(raw_ip_dirty):
         except:
             return 0
 
-    # FUNCTIONS END
 
     dots = raw_ip.count(".")
 
