@@ -4,42 +4,33 @@ from scapy.all import *
 import colorama
 from termcolor import *
 colorama.init()
-from memory_profiler import profile
-
-
 popen = []
 pclosed = []
 result = []
 
 
-@profile()
 def synScan(ip, ports):
     popen[:] = []
     pclosed[:] = []
-    times = int(0)
     # cprint("Scanning IP: " + str(ip) + " for open ports: ", "blue")
 
     for port in ports:
-        times = times + 1
-        if times == 100:
-            cprint("resting for 5 seconds!!! ", "green")
-            time.sleep(5)
-            times = 0
 
         cprint("Scanning IP: " + str(ip) + " for port: " + str(port), "blue")
 
         target = IP(dst=ip)/TCP(dport=port,flags="S")
         reset_target = IP(dst=ip)/TCP(dport=port,flags="R")
 
-        response = sr1(target,timeout=1,verbose=0)
-        if response == None:
+        response = sr1(target,timeout=0.5,verbose=0)
+        if response is None:
             pclosed.append(str(port))
         else:
             if response.haslayer(TCP) and response.getlayer(TCP).flags == 0x12:
+                sr(reset_target, timeout=0.2, verbose=0)
                 popen.append(str(port))
             else:
                 pclosed.append(str(port))
-        send(reset_target,timeout=0.2,verbose=0)
+
     return [popen, pclosed]
 
 def pingScan(ip):
@@ -49,6 +40,23 @@ def pingScan(ip):
         return 0
     else:
         return 1
+
+def udpScan(ip, ports):
+    popen[:] = []
+    pclosed[:] = []
+
+    for port in ports:
+
+        cprint("Scanning IP: " + str(ip) + " for port: " + str(port), "blue")
+
+        target = IP(dst=ip)/UDP(dport=port)
+        response = sr1(target,timeout=1,verbose=0)
+        if response is None:
+            popen.append(str(port))
+        elif response.haslayer(ICMP):
+            pclosed.append(str(port))
+    print popen, pclosed
+    return [popen, pclosed]
 
 
 # #TESTING FUNCTION
