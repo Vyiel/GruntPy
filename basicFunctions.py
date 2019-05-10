@@ -15,11 +15,18 @@ def manualPorts():
         try:
             for p in def_ports:
                 portRange.append(int(p))
-            return portRange
         except:
             cprint("Invalid Ports detected!!!", "red")
             portRange[:] = []
-            continue
+
+        for q in portRange:
+            if q > 0 and q <= 65535:
+                return portRange
+                continue
+            else:
+                cprint("Invalid Ports detected!!!", "red")
+                portRange[:] = []
+                break
 
 
 def preDefinedPorts():
@@ -39,17 +46,28 @@ def manualRange():
                         clean_range.append(int(i))
                     for j in range(clean_range[0], clean_range[1]+1):
                         portRange.append(int(j))
-                    return portRange
                 except:
                     cprint("Invalid Port range detected!!! ", "red")
                     clean_range[:] = []
                     portRange[:] = []
                     continue
 
+                for q in portRange:
+                    if q > 0 and q <= 65535:
+                        return portRange
+                        continue
+                    else:
+                        cprint("Invalid Ports detected!!!", "red")
+                        portRange[:] = []
+                        clean_range[:] = []
+                        break
+
             else:
                 cprint("Invalid Port range detected!!!", "red")
+                continue
         else:
             cprint("Invalid Port range detected!!!", "red")
+            continue
 
 
 def unknownAction():
