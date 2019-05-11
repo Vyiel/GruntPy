@@ -24,7 +24,9 @@ installation:
 usage:
 -> Basically nothing to explicitly mention. As easy as answering questions.
 
-P.S: You are free to use it, change it, learn from it.etc. But, if you are planning to change and re upload it elsewhere or GitHub, Do not forget to mention the original author's name and link.
+P.S: You are free to use it, change it, learn from it.etc. But, if you are planning to change and re upload it elsewhere or GitHub, Do not forget to mention the original author's name and link
+
+Thank You ...
 
 
 
