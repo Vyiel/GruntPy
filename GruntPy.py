@@ -21,6 +21,7 @@ def main():
     text_out_ports = []
     text_out_ping = []
     results = {}
+    portPerIp = []
     ip = []
     sdict = {}
 
@@ -59,18 +60,49 @@ def main():
     def save(results, scan_id):
 
         if len(results) != 0:
-            sys.stdout = open(str(scan_id) + ".txt", "w")
+            sys.stdout = open(str(scan_id) + ".html", "w")
+            print ("""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title> IP and Port status </title>
+            </head>
+            <body>
+                <center> <h2> Open Ports/Alive or dead Status on IPs </h2> </center>
+                <br>     
+                   """)
+
             for keys in results.keys():
-                print ""
-                print "Open ports or alive host status on IP " + str(keys) + ": "
+
+                print ("""
+                
+	            <div id="container" 
+	            style="border: solid 1px; border-radius: 5px; height: 40px; width: 80%; 
+	            display: block; position: relative;	left: 10%">
+                    <div id="IP" style="display: inline-block; height: 100%; width: 20%; left: 0px; 
+                    text-align: center; padding: 0px; margin: 0px">
+			            <p style="margin: 10px; padding: 1px; position: relative;"> """ +str(keys) + """ </p> 
+                    </div>    """)
+                portPerIp = []
                 for values in results[keys]:
-                    print values
-            print "______________________ End of Scan Results ______________________ "
-            print ""
+                    portPerIp.append(str(values))
+
+                toHtml = ",".join(portPerIp)
+
+                print ("""
+                    <div id="ports" style="display: inline-block; height: 100%; width: 78%; 
+                    left: 0px; text-align: center; padding: 0px; margin: 0px; ">
+			            <p style="margin: 10px; padding: 1px; position: relative; color: green;"> """ + toHtml + """ </p>
+		            </div>
+                    
+                </div>""")
+
+            print "<br> <br>"
+            print "<center>______________________ End of Scan Results ______________________  </center>"
             sys.stdout.close()
-            webbrowser.open(str(scan_id) + ".txt")
+            webbrowser.open(str(scan_id) + ".html")
         else:
-            sys.stdout = open(str(scan_id) + ".txt", "w")
+            sys.stdout = open(str(scan_id) + ".html", "w")
             print ""
             print "No viable results to display!!! "
             print "______________________ End of Scan Results ______________________ "
