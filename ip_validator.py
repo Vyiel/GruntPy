@@ -52,5 +52,10 @@ def make_ip():
         clean_ip[i] = str(clean_ip[i])
     return clean_ip
 
+def make_ip_composit():
+    ip = make_ip()
+    joiner = "."
+    composite_ip = joiner.join(ip)
+    return composite_ip
 
 

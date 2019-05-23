@@ -1,12 +1,12 @@
-from memory_profiler import profile
-
 from scapy.all import *
+import socket
 import colorama
 from termcolor import *
 colorama.init()
 popen = []
 pclosed = []
 result = []
+
 
 
 def synScan(ip, ports):
@@ -55,18 +55,51 @@ def udpScan(ip, ports):
             popen.append(str(port))
         elif response.haslayer(ICMP):
             pclosed.append(str(port))
-    print popen, pclosed
+    # print popen, pclosed
     return [popen, pclosed]
 
 
+def banner(ip, ports):
+    banner = {}
+    pclosed[:] = []
+    socket.setdefaulttimeout(100)
+
+    for port in ports:
+        cprint("Scanning ip " + ip +":"+str(port)+ " for banners", "blue")
+        try:
+            s = socket.socket()
+            s.connect((ip, port))
+            payld = '^]'
+            s.send(payld)
+            res = s.recv(50)
+            srv = res.find('Server')
+            res_cln = res[srv:]
+            banner[port] = res_cln
+            s.close()
+
+        except:
+            pclosed.append(port)
+
+
+    return banner
+
+def whois(ip):
+    try:
+        result = socket.gethostbyaddr(ip)
+        return result[0]
+    except:
+        return False
+
+
+
 # #TESTING FUNCTION
-# iprange = ['192.168.1.0', '192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.4', '192.168.1.5', '192.168.1.6', '192.168.1.7']
-# portrange = [21, 80, 8080, 82, 5000, 22, 23, 25, 533, 544, 8090, 6070]
+# iprange = ['192.168.1.1',]
+# portrange = [21, 80, 8080, 82, 5000, 22, 23, 25, 533, 544, 5000, 8090, 6070]
 #
 # for ips in iprange:
-#     a = synScan(ips, portrange)
+#     a = banner(ips, portrange)
 #     print a
 # #TESTING FUNCTION
-
-
+#
+#  # '192.168.1.2', '192.168.1.3', '192.168.1.4', '192.168.1.5', '192.168.1.6', '192.168.1.7'
 
