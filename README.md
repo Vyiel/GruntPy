@@ -24,7 +24,7 @@ usage:
 By default(not for Batch IP scanning), Just run the file with python (python GruntPy.py) and then reply the CLI with the intended choices available. 
 For Batch IP scanning: In case you have a list of a lot of IPs in a text file separated with a comma, that has no relation with eachother and not/or on same subnets, then you can feed GruntPy the file by supplying it as an argumement.
 
---> Example: python GruntPy file.txt <--
+--> Example: python GruntPy.py textfile.txt <--
 
 Now the program will skip the part where you normally feed IP and CIDRs and continue from what you want to do with the IPs. Basically same as before.
 
