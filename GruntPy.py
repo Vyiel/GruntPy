@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from random import randint
 import subnet
 import ip_validator as check_ip
@@ -20,7 +21,7 @@ def main():
     text_out_ip = []
     text_out_ports = []
     text_out_ping = []
-    results = {}
+    results = OrderedDict()
     portPerIp = []
     ip = []
     sdict = {}
