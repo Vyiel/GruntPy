@@ -8,9 +8,7 @@ This would help new comers to understand about the in and outs of common scannin
 I have intentionally kept this project interactive unlike CLI Arugumentative like NMAP. This will help new comers to learn the How things, instead of remembering exact sequnce of letters in argumentative instructions.
 I have separated the IPv4 validation and Subnet calculation codes in modules, for understanding purposes and also can be imported into other python apps as modules or using it as stand alone application.
 New scanner codes can be written to the scanners.py file and the function name can be easily added by just adding the name into a dictionary in the main() function.
-
-Upcoming:
--> Banner Grabbing
+Banner Grabbing, Whois Lookup and Batch IP scanning has been introduced
 
 current bugs:
 -> Loopback or 127.0.0.1 doesn't work. Looking to fix it soon enough.
@@ -23,6 +21,12 @@ installation:
 
 usage:
 -> Basically nothing to explicitly mention. As easy as answering questions.
+By default(not for Batch IP scanning), Just run the file with python (python GruntPy.py) and then reply the CLI with the intended choices available. 
+For Batch IP scanning: In case you have a list of a lot of IPs in a text file separated with a comma, that has no relation with eachother and not/or on same subnets, then you can feed GruntPy the file by supplying it as an argumement.
+
+--> Example: python GruntPy.py textfile.txt <--
+
+Now the program will skip the part where you normally feed IP and CIDRs and continue from what you want to do with the IPs. Basically same as before.
 
 P.S: You are free to use it, change it, learn from it.etc. But, if you are planning to change and re upload it elsewhere or GitHub, Do not forget to mention the original author's name and link
 
