@@ -43,7 +43,7 @@ def main():
 
         while True:
 
-            action1 = raw_input("Enter selection: ")
+            action1 = input("Enter selection: ")
             try:
                 action1 = int(action1)
             except:
@@ -98,15 +98,15 @@ def main():
                     
                 </div>""")
 
-            print "<br> <br>"
-            print '<center > <p style="color: #009432"> End of Scan Results </p> </center>'
+            print ("<br> <br>")
+            print ('<center > <p style="color: #009432"> End of Scan Results </p> </center>')
             sys.stdout.close()
             webbrowser.open(str(scan_id) + ".html")
         else:
             sys.stdout = open(str(scan_id) + ".html", "w")
-            print ""
-            print '<p style="color: #009432" No viable results to display!!! '
-            print '<center > <p style="color: #009432"> End of Scan Results </p> </center>'
+            print ("")
+            print ('<p style="color: #009432" No viable results to display!!! ')
+            print ('<center > <p style="color: #009432"> End of Scan Results </p> </center>')
             sys.stdout.close()
             webbrowser.open(str(scan_id) + ".txt")
 
@@ -137,7 +137,7 @@ def main():
     if len(ipRange) == 0:
         while True:
 
-            raw_ip = raw_input("Enter valid IP Address: ")
+            raw_ip = input("Enter valid IP Address: ")
             ip_ok = check_ip.ipValidation(raw_ip)
             if ip_ok == 0:
                 ip = check_ip.make_ip()
@@ -149,7 +149,7 @@ def main():
 
         while True:
 
-            cidr = raw_input("Enter CIDR Value. Press '0' for Single IP: ")
+            cidr = input("Enter CIDR Value. Press '0' for Single IP: ")
 
             sn_result = subnet.calculate_subnet(ip, cidr)
             if sn_result != False:
@@ -178,7 +178,7 @@ def main():
 
     while True:
 
-        action2 = raw_input("Enter selection: ")
+        action2 = input("Enter selection: ")
         try:
             action2 = int(action2)
         except:
@@ -263,7 +263,7 @@ def main():
 
     while True:
         if len(results) != 0:
-            if_save = raw_input("Do you want to save the results into current directory? (y/n) ")
+            if_save = input("Do you want to save the results into current directory? (y/n) ")
             if if_save == "y":
                 save(results, scan_id)
                 cprint("Thank you for using GruntPy. Quitting!!! ", "red")

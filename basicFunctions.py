@@ -10,7 +10,7 @@ split = []
 def manualPorts():
     while True:
 
-        user_ports = raw_input("Enter ports separated with comma ',': ")
+        user_ports = input("Enter ports separated with comma ',': ")
         def_ports = user_ports.split(",")
         try:
             for p in def_ports:
@@ -37,7 +37,7 @@ def preDefinedPorts():
 def manualRange():
     while True:
 
-        mrange = raw_input("Enter Port range separated by '-' ")
+        mrange = input("Enter Port range separated by '-' ")
         if mrange.count("-") == 1:
             split = mrange.split("-")
             if len(split) == 2:

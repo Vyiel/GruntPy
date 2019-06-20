@@ -1,4 +1,8 @@
 # GruntPy
+
+Latest Update : Migrated from Python 2.7 to Python 3.x
+Do report errors for me to fix
+
 Introduction: 
 A basic grunt work project for new coming penetration testing students to learn about the in and outs of the first stage of hacking and networking.
 This is from a basic view, a TCP, UDP and Ping scanner. The scanners are scripted from the very powerfull tool 'Scapy'

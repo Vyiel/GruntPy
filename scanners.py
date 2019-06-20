@@ -67,12 +67,13 @@ def banner(ip, ports):
     for port in ports:
         cprint("Scanning ip " + ip +":"+str(port)+ " for banners", "blue")
         try:
-            s = socket.socket()
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((ip, port))
             payld = '^]'
             s.send(payld)
             res = s.recv(50)
-            srv = res.find('Server')
+            denoter = "Server"
+            srv = res.find(denoter)
             res_cln = res[srv:]
             banner[port] = res_cln
             s.close()

@@ -6,7 +6,6 @@ def ipValidation(raw_ip_dirty):
     raw_ip = raw_ip_dirty.lstrip(",<.>/?':;-*/")
 
     dots = 0
-
     def StringCleaner(clean_ip):
         try:
             for i in range(len(clean_ip)):
@@ -38,6 +37,7 @@ def ipValidation(raw_ip_dirty):
                     valid_octets = 1
                 else:
                     valid_octets = 0
+                    break
 
             if valid_dots and valid_octets == 1:
                 error_code = 0
